@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Learning About Nodes</title>
+  <script type="text/javascript" src="traverse.js" ></script>
+
+  <style>
+    * { border: 2px solid #dedede; padding: 15px; margin: 15px; }
+    html { margin: 0; padding: 0; }
+    body { max-width: 600px; font-family: sans-serif; color: #333; }
+  </style>
+</head>
+
+<body>
+  <h1>Shark World</h1>
+  <p>The world's leading source on <strong>shark</strong> related information.</p>
+  <h2>Types of Sharks</h2>
+  <ul>
+    <li>Hammerhead</li>
+    <li>Tiger</li>
+    <li>Great White</li>
+    <li>DOM Finn</li>
+  </ul>
+</body>
+
+<script>
+  const h1 = document.getElementsByTagName('h1')[0];
+  const p = document.getElementsByTagName('p')[0];
+  const ul = document.getElementsByTagName('ul')[0];
+
+  document.body.onload = () => {
+  const root = document.body;
+  walk(root, function (node) {
+  try {
+    //is it a text node but not a child of a script tag?
+    if(node.nodeType === 3 && node.parentNode.tagName !== 'SCRIPT') {
+      let text = node.data.trim();
+      // does it have non whitespace text content?
+      if(text.length > 0) {
+        text = text.replace('DOM', 'KITTEN');
+        node.data = text;
+        return true;
+      }
+    }
+  } catch(err) {
+    console.log('An error occured: ', err.message);
+    return false;
+  }
+  });
+}
+</script>
+
+</html>
